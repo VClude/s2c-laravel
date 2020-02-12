@@ -6,6 +6,7 @@
 
 
 </p>
+
 ## Tentang S2C-Laravel
 
 S2C-Laravel Merupakan Tranlasi Project S2C-PHP yang menggunakan CodeIgniter & PHP 5.6
