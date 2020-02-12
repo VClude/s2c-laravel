@@ -23,8 +23,10 @@ before_script:
   - cp .env.travis .env
   - php artisan key:generate
   - php artisan migrate
-  - php artisan serve &
 
 script:
+  - php artisan serve &
+  - sleep 4
   - vendor/bin/phpunit
+
 
