@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use Illuminate\Support\Facades\Hash;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +13,8 @@ class AuthController extends Controller
     public function register (Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'fullname' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -24,7 +27,7 @@ class AuthController extends Controller
         $request['password']=Hash::make($request['password']);
         $user = User::create($request->toArray());
     
-        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+        $token = $user->createToken('TokenAuth')->accessToken;
         $response = ['token' => $token];
     
         return response($response, 200);
@@ -34,21 +37,23 @@ class AuthController extends Controller
 
     public function login (Request $request) {
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->orWhere('email', $request->username)->get();
     
         if ($user) {
-    
-            if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
+            
+            if (Auth::attempt(['email' => $request->username, 'password' => $request->password]) ||
+                Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+                $user = Auth::user();
+                $token = $user->createToken('TokenAuth')->accessToken;
+                $response = ['token' => $token, 'details' => $user];
                 return response($response, 200);
             } else {
-                $response = "Password missmatch";
+                $response = ['status' => 'password salah'];
                 return response($response, 422);
             }
     
         } else {
-            $response = 'User does not exist';
+            $response = ['status' => 'User ga ada'];
             return response($response, 422);
         }
     
@@ -60,8 +65,26 @@ class AuthController extends Controller
         $token = $request->user()->token();
         $token->revoke();
     
-        $response = 'You have been succesfully logged out!';
+        $response = ['status' => 'Success'];
         return response($response, 200);
     
     }
+
+    public function details() 
+    { 
+        $user = Auth::user(); 
+        return response()->json(['status' => $user], 200); 
+    }
+
+    public function delete($id) 
+    { 
+        //need to add admin only middleware here 
+        $user = User::Id($id);
+        if($user){
+            User::destroy($id);
+            return response()->json(['deleted' => true, 'user' => $user], 200); 
+        }
+
+        return response()->json(['status' => 'User not Found'], 200); 
+    } 
 }

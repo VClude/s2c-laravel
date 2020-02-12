@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,14 @@ class DummyController extends Controller
      */
     public function index()
     {
+        
         return response()->json(['status' => 'OK']);
+    }
+
+    public function urltest()
+    {
+        $a = collect(\Route::getRoutes())->map(function ($route) { return $route->uri(); });
+        return response()->json($a);
     }
 
     /**

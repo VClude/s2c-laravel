@@ -20,13 +20,15 @@ Route::group(['prefix' => 'v1',  'middleware' => ['json.response']], function ()
         Route::middleware('auth:api')->get('user', function (Request $request) {
             return $request->user();
         });
-
         //user access 'http://url/api/v1/u/'
         Route::group(['prefix' => 'u', 'namespace' => 'Api'], function () {
-            Route::post('login', 'AuthController@login')->name('api.login');
-            Route::post('register', 'AuthController@register')->name('api.login');
+            Route::post('login', 'AuthController@login')->name('api.user.login');
+            Route::post('register', 'AuthController@register')->name('api.user.register');
+            //temporal delete user
+            Route::get('delete/{id}', 'AuthController@delete')->name('api.user.delete');
             Route::middleware('auth:api')->group(function () {
-                Route::get('logout', 'AuthController@logout')->name('logout');
+                Route::get('logout', 'AuthController@logout')->name('api.user.logout');
+                Route::get('my', 'AuthController@details')->name('api.user.details');
             });
         });
 
