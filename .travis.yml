@@ -1,0 +1,26 @@
+language: php
+
+php:
+  - 7.4
+
+addons:
+  postgresql: "11.6"
+
+cache:
+  directories:
+    - node_modules
+    - vendor
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction
+  - cp .env.travis .env
+  - php artisan key:generate
+  - php artisan migrate
+
+before_install:
+    - psql -c 'create database s2c_laravel_test;' -U postgres -p 4400
+
+script:
+  - vendor/bin/phpunit
+

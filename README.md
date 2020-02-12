@@ -1,5 +1,11 @@
 <p align="center"><h1>S2C-Laravel</h1></p>
 
+<p  align="center">
+
+<a  href="https://travis-ci.org/laravel/framework"><img  src="https://travis-ci.com/VClude/s2c-laravel.svg?branch=master"  alt="Build Status"></a>
+
+
+</p>
 ## Tentang S2C-Laravel
 
 S2C-Laravel Merupakan Tranlasi Project S2C-PHP yang menggunakan CodeIgniter & PHP 5.6
