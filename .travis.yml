@@ -19,7 +19,7 @@ before_script:
   - php artisan migrate
 
 before_install:
-    - psql -c 'create database s2c_laravel_test;' -U postgres -p 4400
+    - psql -c 'create database s2c_laravel_test;' -U postgres
 
 script:
   - vendor/bin/phpunit
