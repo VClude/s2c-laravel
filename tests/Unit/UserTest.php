@@ -27,7 +27,7 @@ class UserTest extends TestCase
     public function testEmployeeRegister()
     {
         $client = new Client();
-        $url = 'http://localhost:8000/';
+        $url = 'http://127.0.0.1:8000/';
         $response = $client->post(
             $url . 'api/v1/u/register',
             array(
@@ -50,7 +50,7 @@ class UserTest extends TestCase
     public function testEmployeeLogin()
     {
         $client = new Client();
-        $url = 'http://localhost:8000/';
+        $url = 'http://127.0.0.1:8000/';
         $response = $client->post(
             $url . 'api/v1/u/login',
             array(
@@ -76,7 +76,7 @@ class UserTest extends TestCase
     {
         $token = &$this->gst();
         $client = new Client();
-        $url = 'http://localhost:8000/';
+        $url = 'http://127.0.0.1:8000/';
         $response = $client->request('GET', $url . 'api/v1/u/logout', [
             'headers' => ['Authorization' => 'Bearer ' . $token],
         ]);
@@ -90,7 +90,7 @@ class UserTest extends TestCase
     {
         $id = &$this->gsid();
         $client = new Client();
-        $url = 'http://localhost:8000/';
+        $url = 'http://127.0.0.1:8000/';
         $response = $client->request('GET', $url . 'api/v1/u/delete/' . $id);
         $this->assertEquals(200, $response->getStatusCode());
         $data = json_decode($response->getBody(), true);
