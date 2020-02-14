@@ -43,7 +43,7 @@ class FileTest extends TestCase
             ]
         ]);
 
-        $this->assertStatus(200);
+        $this->assertEquals(200, $response->getStatusCode());
         $data = json_decode($response->getBody(), true);
         $this->assertArrayHasKey('status', $data);
 
@@ -51,7 +51,7 @@ class FileTest extends TestCase
         $filename = $data['file'];
 
         $dir = &$this->gsdir();
-        $dir = $data['dir'];
+        $dir = $data['folder'];
     }
 
 
@@ -61,22 +61,17 @@ class FileTest extends TestCase
         $file = &$this->gsfp();
         $client = new Client();
         $url = 'http://127.0.0.1:8000/';
-        $response = $client->request('POST', $url . 'api/v1/file/delete', [
-            'multipart' => [
-                [
-                    [
-                        'name'     => 'directory',
-                        'contents' => $dir
-                    ],
-                    [
-                        'name'     => 'file',
-                        'contents' => $file
-                    ]
-                ]
-            ]
-        ]);
+        $response = $client->post(
+            $url . 'api/v1/file/delete',
+            array(
+                'form_params' => array(
+                    'directory' => $dir,
+                    'file' => $file
+                ),
+            )
+        );
 
-        $this->assertStatus(200);
+        $this->assertEquals(200, $response->getStatusCode());
         $data = json_decode($response->getBody(), true);
         $this->assertArrayHasKey('status', $data);
 
