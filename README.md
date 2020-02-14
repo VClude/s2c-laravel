@@ -33,10 +33,10 @@ S2C-Laravel Merupakan Tranlasi Project S2C-PHP yang menggunakan CodeIgniter & PH
 -  **[Laravel](https://laravel.com/)**
 -  **[React](https://reactjs.org/)**
 -  **[Elasticsearch](https://elastic.co/)**
--  **[Kibana](https://elastic.co/kibana/)**
+-  **[Kibana](https://elastic.co/kibana/)** (TBD)
 
 ## Unit Testing
 
--  **[PPH Unit](https://phpunit.de)**
--  **[Enzyme](https://airbnb.io/enzyme)**
--  **[Jest](https://jestjs.io)**
+-  **[PHP Unit](https://phpunit.de)**
+-  **[Enzyme](https://airbnb.io/enzyme)**  (TBD)
+-  **[Jest](https://jestjs.io)**  (TBD)

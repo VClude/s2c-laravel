@@ -20,6 +20,13 @@ Route::group(['prefix' => 'v1',  'middleware' => ['json.response']], function ()
         Route::middleware('auth:api')->get('user', function (Request $request) {
             return $request->user();
         });
+
+        //File Management 'http://url/api/v1/file/'
+        Route::group(['prefix' => 'file', 'namespace' => 'Api'], function () {
+            Route::post('upload', 'FileController@doUpload')->name('api.file.upload');
+            Route::post('delete', 'FileController@fileDelete')->name('api.file.delete');
+            });
+
         //user access 'http://url/api/v1/u/'
         Route::group(['prefix' => 'u', 'namespace' => 'Api'], function () {
             Route::post('login', 'AuthController@login')->name('api.user.login');
