@@ -33,8 +33,12 @@ class FileTest extends TestCase
         $response = $client->request('POST', $url . 'api/v1/file/upload', [
             'multipart' => [
                 [
-                    'directory'     => 'test',
-                    'file' => fopen($url. 'storage/test/testfile.zip', 'r')
+                    'name'     => 'directory',
+                    'contents' => 'test'
+                ],
+                [
+                    'name'     => 'file',
+                    'contents' => fopen($url. 'storage/test/testfile.zip', 'r')
                 ]
             ]
         ]);
@@ -60,8 +64,14 @@ class FileTest extends TestCase
         $response = $client->request('POST', $url . 'api/v1/file/delete', [
             'multipart' => [
                 [
-                    'directory'     => $dir,
-                    'file' => $file
+                    [
+                        'name'     => 'directory',
+                        'contents' => $dir
+                    ],
+                    [
+                        'name'     => 'file',
+                        'contents' => $file
+                    ]
                 ]
             ]
         ]);
