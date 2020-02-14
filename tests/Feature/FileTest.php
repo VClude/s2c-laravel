@@ -34,7 +34,7 @@ class FileTest extends TestCase
             'multipart' => [
                 [
                     'directory'     => 'test',
-                    'file' => fopen(asset('test/testfile.zip'), 'r')
+                    'file' => fopen($url. 'storage/test/testfile.zip', 'r')
                 ]
             ]
         ]);
