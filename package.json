@@ -27,7 +27,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.12.1",
         "autonumeric": "^4.5.10",
-        "chart.js": "^2.9.3",
+        "chart.js": "^2.9.4",
         "datatables": "^1.10.18",
         "react-router-dom": "^5.1.2",
         "tinymce": "^5.1.6",
